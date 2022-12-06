@@ -24,7 +24,6 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
 
     /** @notice Token ID counter declared */
     Counters.Counter private _tokenIds;
-    mapping(uint =>string) public imageurl;
     /** @notice Freeze token base URI. Irrevocable */
 
     /** @notice Public mint open */
