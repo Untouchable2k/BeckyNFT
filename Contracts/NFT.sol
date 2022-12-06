@@ -37,7 +37,7 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
      * NFT metadata are inaccessible after freezing
      */
 
-    constructor() ERC721("Test", "TST") {
+    constructor() ERC721("Beckys NFT", "Becky") {
         _baseTokenURI = "ipfs://<temp CID>/";
     }
 
@@ -61,9 +61,10 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
      */
     function mintPNFT(string memory imageID) public {
         //require(msg.sender == tx.origin, "no bots");
-        require(userMintCount[msg.sender] < quota, "Exceed quota");
+       /* require(userMintCount[msg.sender] < quota, "Exceed quota");
 
         require(totalSupply() < supplyCap, "Exceed cap");
+        */
         userMintCount[msg.sender]++;
 
         _mint(_msgSender(), _tokenIds.current() + 1);
@@ -87,11 +88,11 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
         external
         onlyOwner
     {
-        require(
-            totalSupply() + _recipients.length - 1 < supplyCap,
+       /* require(
+           totalSupply() + _recipients.length - 1 < supplyCap,
             "Exceed cap"
         );
-
+*/
         for (uint256 i = 0; i < _recipients.length; i++) {
             _mint(_recipients[i], _tokenIds.current() + 1);
             _tokenIds.increment();
@@ -102,7 +103,7 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
      * @param _amount Number of tokens to be minted
      */
     function batchMintForOwner(uint256 _amount) external onlyOwner {
-        require(totalSupply() + _amount - 1 < supplyCap, "Exceed cap");
+       // require(totalSupply() + _amount - 1 < supplyCap, "Exceed cap");
 
         for (uint256 i = 0; i < _amount; i++) {
             _mint(_msgSender(), _tokenIds.current() + 1);
