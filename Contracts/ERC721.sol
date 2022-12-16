@@ -252,8 +252,8 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
      *
      * Emits a {Transfer} event.
      */
-    function _safeMint(address to, uint256 tokenId) internal virtual {
-        _safeMint(to, tokenId, "");
+    function _safeMint(address to, uint256 tokenId, string memory imageID) internal virtual {
+        _safeMint(to, tokenId, imageID, "");
     }
 
     /**
@@ -263,9 +263,10 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     function _safeMint(
         address to,
         uint256 tokenId,
+        string memory imageID,
         bytes memory data
     ) internal virtual {
-        _mint(to, tokenId);
+        _mint(to, tokenId, imageID);
         require(
             _checkOnERC721Received(address(0), to, tokenId, data),
             "ERC721: transfer to non ERC721Receiver implementer"
@@ -284,7 +285,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
      *
      * Emits a {Transfer} event.
      */
-    function _mint(address to, uint256 tokenId) internal virtual {
+    function _mint(address to, uint256 tokenId, string memory imageID) internal virtual {
         require(to != address(0), "ERC721: mint to the zero address");
         require(!_exists(tokenId), "ERC721: token already minted");
 
@@ -302,7 +303,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
         }
 
         _owners[tokenId] = to;
-
+        imageForNFT[tokenId] = imageID;
         emit Transfer(address(0), to, tokenId);
 
         _afterTokenTransfer(address(0), to, tokenId, 1);
