@@ -80,7 +80,7 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
     /** @notice Pass an array of address to batch mint
      * @param _recipients List of addresses to receive the batch mint
      */
-    function batchMint(address[] calldata _recipients, string[] memory imageIDs) public+
+    function batchMint(address[] calldata _recipients, string[] memory imageIDs) public
 
     
     {
