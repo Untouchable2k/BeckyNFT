@@ -1,12 +1,12 @@
 //SPDX-License-Identifier: None
 pragma solidity ^0.8.7;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Context.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
+import "./ERC721.sol";
+import "./ERC721Enumerable.sol";
+import "./Ownable.sol";
+import "./Context.sol";
+import "./Counters.sol";
+import "./EnumerableSet.sol";
 
 contract P_NFTs is Context, Ownable, ERC721Enumerable{
     using Counters for Counters.Counter;
