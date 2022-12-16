@@ -3,8 +3,6 @@ pragma solidity ^0.8.7;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -36,7 +34,7 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
      * NFT metadata are inaccessible after freezing
      */
 
-    constructor() ERC721("Beckys NFT", "Becky") {
+    constructor() ERC721("Beckys' NFT", "Becky") {
         _baseTokenURI = "ipfs://<temp CID>/";
     }
 
@@ -66,9 +64,8 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
         */
         userMintCount[msg.sender]++;
 
-        _mint(_msgSender(), _tokenIds.current() + 1);
+        _mint(_msgSender(), _tokenIds.current() + 1, imageID);
         _tokenIds.increment();
-        imageForNFT[_tokenIds.current()] = imageID;
 
     }
 
@@ -83,9 +80,9 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
     /** @notice Pass an array of address to batch mint
      * @param _recipients List of addresses to receive the batch mint
      */
-    function batchMint(address[] calldata _recipients)
-        external
-        onlyOwner
+    function batchMint(address[] calldata _recipients, string[] memory imageIDs) public+
+
+    
     {
        /* require(
            totalSupply() + _recipients.length - 1 < supplyCap,
@@ -93,7 +90,7 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
         );
 */
         for (uint256 i = 0; i < _recipients.length; i++) {
-            _mint(_recipients[i], _tokenIds.current() + 1);
+            _mint(_recipients[i], _tokenIds.current() + 1, imageIDs[i]);
             _tokenIds.increment();
         }
     }
@@ -101,11 +98,11 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
     /** @notice Owner can batch mint to itself
      * @param _amount Number of tokens to be minted
      */
-    function batchMintForOwner(uint256 _amount) external onlyOwner {
+    function batchMintForOwner(uint256 _amount, string memory imageID) external onlyOwner {
        // require(totalSupply() + _amount - 1 < supplyCap, "Exceed cap");
 
         for (uint256 i = 0; i < _amount; i++) {
-            _mint(_msgSender(), _tokenIds.current() + 1);
+            _mint(_msgSender(), _tokenIds.current() + 1, imageID);
             _tokenIds.increment();
         }
     }
