@@ -61,27 +61,12 @@ contract P_NFTs is Context, Ownable, ERC721Enumerable{
         require(totalSupply() < supplyCap, "Exceed cap");
         */
         userMintCount[msg.sender]++;
-        string test = getId(imageID);
 
-        _mint(_msgSender(), _tokenIds.current() + 1, test);
+        _mint(_msgSender(), _tokenIds.current() + 1, imageID);
         _tokenIds.increment();
 
     }
-    function getId(int imageID)public returns(string image){
-       return(image[imageID]);
-       }
-       
-       function editImagesPath(string memory [] images) public onlyOwner{
-       for(int x=1; x<images.length; x++){
-            image[x] = images[x];
-            }
-       }
-    
-    function launchImages()public onlyOwner{
-        for(int x=1; x<20; x++){
-            image[x] = Strings.toString(x)
-        }
-        }
+
     /** @notice Contract owner can burn token he owns
      * @param _id token to be burned
      */
